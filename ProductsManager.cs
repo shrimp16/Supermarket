@@ -4,13 +4,27 @@ namespace Products
 {
     class ProductsManager
     {
-        MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder
-        {
-            Server = "localhost",
-            Database = "cs-db",
-            UserID = "root",
-            Password = ""
-        };
+        MySqlConnectionStringBuilder builder;
+
+        public ProductsManager(){
+            builder = new MySqlConnectionStringBuilder
+            {
+                Server = "localhost",
+                Database = "supermarket",
+                UserID = "root",
+                Password = ""
+            };
+        }
+
+        public ProductsManager(string database) {
+            builder = new MySqlConnectionStringBuilder
+            {
+                Server = "localhost",
+                Database = database,
+                UserID = "root",
+                Password = ""
+            };
+        }
 
         public async Task<Product[]> GetAllProducts()
         {
