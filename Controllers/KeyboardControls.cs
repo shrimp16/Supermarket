@@ -38,19 +38,11 @@ namespace Keyboard
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    if (pointer == 0)
-                    {
-                        break;
-                    }
-                    this.pointer--;
+                    DecrementPointer();
                     productViews.ShowAllProducts(products, pointer);
                     break;
                 case ConsoleKey.DownArrow:
-                    if (pointer == products.Length - 1)
-                    {
-                        break;
-                    }
-                    this.pointer++;
+                    IncrementPointer();
                     productViews.ShowAllProducts(products, pointer);
                     break;
                 case ConsoleKey.Enter:
@@ -88,6 +80,24 @@ namespace Keyboard
                     break;
             }
 
+        }
+
+        public void DecrementPointer()
+        {
+            if (pointer == 0)
+            {
+                return;
+            }
+            pointer--;
+        }
+
+        public void IncrementPointer()
+        {
+            if (pointer == products.Length - 1)
+            {
+                return;
+            }
+            pointer++;
         }
 
         public async void UpdateStock()
@@ -137,7 +147,8 @@ namespace Keyboard
             string typeToSearch = Console.ReadLine();
             Console.WriteLine(products.Length);
             products = await productsManager.GetProductsByType(typeToSearch);
-            if(products.Length == 0){
+            if (products.Length == 0)
+            {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("There are currently no products from that category!");

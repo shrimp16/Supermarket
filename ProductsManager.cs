@@ -6,7 +6,8 @@ namespace Products
     {
         MySqlConnectionStringBuilder builder;
 
-        public ProductsManager(){
+        public ProductsManager()
+        {
             builder = new MySqlConnectionStringBuilder
             {
                 Server = "localhost",
@@ -16,7 +17,8 @@ namespace Products
             };
         }
 
-        public ProductsManager(string database) {
+        public ProductsManager(string database)
+        {
             builder = new MySqlConnectionStringBuilder
             {
                 Server = "localhost",
@@ -137,13 +139,19 @@ namespace Products
 
         public async Task UpdateProduct(string product, int new_quantity)
         {
+            Product prod = await GetProduct(product);
+            Console.WriteLine(prod.Quantity + new_quantity);
+            if (prod.Quantity + new_quantity < 0) return;
+
+            int quantity = prod.Quantity + new_quantity;
+
             using (var connection = new MySqlConnection(builder.ConnectionString))
             {
                 await connection.OpenAsync();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "UPDATE inventory SET quantity = @quantity WHERE name = @product;";
-                    command.Parameters.AddWithValue("@quantity", new_quantity);
+                    command.Parameters.AddWithValue("@quantity", quantity);
                     command.Parameters.AddWithValue("@product", product);
                     await command.ExecuteNonQueryAsync();
                 }
