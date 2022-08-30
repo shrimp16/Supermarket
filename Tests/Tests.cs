@@ -128,7 +128,7 @@ public class CrudOpsTests
     [Fact]
     public void TestDecrementPointer()
     {
-        KeyboardControls keyboardControls = new KeyboardControls();
+        KeyboardControls keyboardControls = new KeyboardControls(new ProductsManager("supermarket-test"));
 
         keyboardControls.DecrementPointer();
 
@@ -144,9 +144,7 @@ public class CrudOpsTests
     [Fact]
     public async void TestIncrementPointer()
     {
-        KeyboardControls keyboardControls = new KeyboardControls();
-
-        keyboardControls.productsManager = new ProductsManager("supermarket-test");
+        KeyboardControls keyboardControls = new KeyboardControls(new ProductsManager("supermarket-test"));
 
         await keyboardControls.UpdateProducts();
 

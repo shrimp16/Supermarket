@@ -19,6 +19,12 @@ namespace Keyboard
             productViews = new ProductViews();
         }
 
+        public KeyboardControls(ProductsManager productsManager){
+            pointer = 0;
+            this.productsManager = productsManager;
+            productViews = new ProductViews();
+        }
+
         public async Task Start()
         {
             await UpdateProducts();
