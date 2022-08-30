@@ -1,2 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Keyboard;
+
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        Console.WriteLine("ON");
+        KeyboardControls keyboardControls = new KeyboardControls();
+        await keyboardControls.Start();
+    }
+
+}
